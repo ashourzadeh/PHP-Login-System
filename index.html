@@ -1,0 +1,86 @@
+<?php
+include('connection.php');
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PHP login system</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="Script.js"></script>
+    <style>
+#Usercheck {
+    display: block;
+    position: relative !important;
+    margin: 0 auto;
+    color: lime;
+    border: 1px;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+<div id="alldiv">
+<div class="text-wrap">
+ <div class="text w-100">
+   <h2>Welcome to login</h2>
+   <p>Don't have an account?</p>
+   <button id = "swaps" onclick="swapsLogInSignIN()">Sign Up</button>
+ </div>
+</div>
+<!-- Login -->
+<div id = "frm1">
+<form name="f1" action = "authentication.php" onsubmit = "return validation()" method = "POST">
+<div class="container">
+<h1 id="Sign_in_up_txt">Sign In</h1>
+<label>User Level :</label><select name="level" class="level" id="level">
+<optgroup label="Select User Level">
+<option value="Admin">Admin</option>
+<option value="Order">Order</option>
+<option value="Conter">Conter</option>
+<option value="User">User</option>
+</optgroup>
+</select>
+<label>User Name :</label><input type="text" id="user" name="user">
+<label>User Pass :</label><input type = "password" id ="pass" name  = "pass" />
+<input type =  "submit" id = "btn" value = "Login" />
+</div><!-- container -->
+</form><!-- f1 -->
+</div><!-- frm1 -->
+<!-- Sign Up -->
+<div id = "frm2">
+<form name="f2" action = "SignUp.php" onsubmit = "return validation2()" method = "POST">
+<div class="container">
+<h1 id="Sign_in_up_txt">Sign Up</h1>
+<label>User Level :</label><select name="level" class="level" id="level2">
+<optgroup label="Select User Level">
+<option value="Admin">Admin</option>
+<option value="Order">Order</option>
+<option value="Conter">Conter</option>
+<option value="User">User</option>
+</optgroup>
+</select>
+<label>User Name :</label><input type="text" id="user" name="user" oninput="checkuser(this.value)">
+<label id="Usercheck"></label>
+<label>User Pass :</label><input type = "text" id ="pass" name="pass" />
+<input type =  "submit" id = "btn" value = "Save" />
+</div><!-- container -->
+</form><!-- f2 -->
+</div><!-- frm2 -->
+</div><!-- alldiv -->
+<script>
+function checkuser(str) {
+  let text = str;
+  var xmlhttp=new XMLHttpRequest();
+  var Level=document.getElementById("level2").value;
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+    document.getElementById("Usercheck").innerHTML=this.responseText;
+    }
+  }
+  xmlhttp.open("GET","usercheck.php?p="+Level+"&q="+text,true);
+  xmlhttp.send();
+}
+</script>
+</body>
+</html>
